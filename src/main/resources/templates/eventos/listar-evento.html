@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="pt-br" layout:decorate="~{template.html}"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:th="http://thymeleaf.org">
+<head>
+
+    <title>SmartEvent Lista</title>
+
+
+</head>
+<body>
+
+<div layout:fragment="conteudo">
+    <div class="container">
+
+
+        <div class="container mt-5">
+            <h2>Tabela de Eventos</h2>
+            <table class="table table-dark table-striped">
+                <thead>
+
+                <tr>
+                    <th scope="col">Nome:</th>
+                    <th scope="col">Data:</th>
+                    <th scope="col">URL:</th>
+                    <th scope="col" colspan="2">Ações:</th>
+
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:if="${eventos.empty}">
+                    <td colspan="5"> Sem Eventos </td>
+                </tr>
+
+                <tr th:each="evento : ${eventos}">
+                    <td><span th:text="${evento.nome}"></span></td>
+                    <td><span th:text="${evento.data}"></span></td>
+                    <td><a th:href="${evento.url}" th:text="${evento.url}" target="_blank"></a></td>
+
+                    <td>
+                        <a class="btn btn-danger btn-xs"> Excluir</a>
+                    </td>
+                    <td>
+                        <a class="btn btn-primary btn-xs"
+                        th:href="@{/eventos/editar/{id}(id=${evento.id})}"> Editar</a>
+                    </td>
+
+                </tr>
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+</div>
+
+
+</body>
+</html>

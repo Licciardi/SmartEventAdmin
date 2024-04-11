@@ -29,18 +29,19 @@
 <form action="/eventos/salvar" id="" method="post">
     <div class="p-2">
         <label for="nome">Nome do Evento :</label>
-        <input field="*{nome}" name="nome" id="nome" type="text" required>
+        <input th:text="*{nome}" name="nome" id="nome" type="text" required >
     </div>
 
     <div class="p-2">
         <label for="data">Data do Evento :</label>
-        <input field="*{data}" name="data" id="data" type="date" required>
+        <input th:text="*{data}" name="data" id="data" type="date" required >
     </div>
 
     <div class="p-2">
         <label for="url">Url do Evento :</label>
-        <input field="*{url}" name="url" id="url" type="text" required>
+        <input th:text="*{url}" name="url" id="url" type="text" required>
     </div>
+
     <button>Adicionar Evento</button></form>
 
             </div>
