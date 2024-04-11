@@ -1,0 +1,1 @@
+INSERT INTO tb_evento(nome,data,url)VALUES('Festa do Branco', '26/04/2024', 'https://www.festadobranco.com.br')
