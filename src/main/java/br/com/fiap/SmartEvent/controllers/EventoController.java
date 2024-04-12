@@ -1,7 +1,6 @@
 package br.com.fiap.SmartEvent.controllers;
 
 import br.com.fiap.SmartEvent.models.Evento;
-import br.com.fiap.SmartEvent.repository.EventoRepository;
 import br.com.fiap.SmartEvent.services.EventoService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,10 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
@@ -22,12 +18,10 @@ public class EventoController {
     @Autowired
     private EventoService service;
 
-    @Autowired
-    private EventoRepository repository;
 
 
-    @GetMapping("/novo")
-    public String AddEvento(Model model){
+    @GetMapping("/form")
+    public String loadForm(Model model){
 
         model.addAttribute("eventos", new Evento());
         return "eventos/novo-evento";
@@ -35,22 +29,22 @@ public class EventoController {
 
 
     //salvar
-    @PostMapping("/salvar")
+    @PostMapping()
     @Transactional
-    public String insertEvento(@Valid Evento evento,
+    public String insert(@Valid Evento evento,
                                BindingResult result, RedirectAttributes attributes){
 
         if (result.hasErrors()){
             return "/eventos/novo-evento";
         }
-        repository.save(evento);
+        service.insert(evento);
         attributes.addFlashAttribute("mensagem", "Evento salvo com sucesso!");
-        return "redirect:/eventos/novo";
+        return "redirect:/eventos/form";
     }
 
     //listar
     @GetMapping("/listar")
-    @Transactional
+    @Transactional(readOnly = true)
     public String findAll(Model model){
 
         model.addAttribute("eventos", service.findAll());
@@ -61,41 +55,35 @@ public class EventoController {
 
     @GetMapping("/editar/{id}")
     @Transactional(readOnly = true)
-    public String editarEvento(@PathVariable ("id") Long id, Model model ){
-        Evento evento = repository.findById(id).orElseThrow(
-                () -> new IllegalArgumentException("Evento inválido - id: " + id)
-        );
+    public String findById(@PathVariable ("id") Long id, Model model ){
+      Evento evento = service.findById(id);
         model.addAttribute("evento", evento);
-        return "/evento/editar-produto";
+        return "/eventos/editar-evento";
     }
 
 
-    @PostMapping("/editar/{id}")
+    @PutMapping("/editar/{id}")
     @Transactional
-    public String editEvento(@PathVariable ("id") Long id, @Valid Evento evento,
+    public String uptade(@PathVariable ("id") Long id, @Valid Evento evento,
                              BindingResult result){
 if (result.hasErrors()){
     evento.setId(id);
-    return "/evento/editar-evento";
+    return "/eventos/editar-evento";
 } else {
-    repository.save(evento);
+    service.update(id, evento);
     return "redirect:/eventos/listar";
 }
 
 
     }
 
+
+    //deletar
     @GetMapping("/deletar/{id}")
     @Transactional
-    public String deletarEvento(@PathVariable("id") Long id, Model model){
-        if(!repository.existsById(id)){
-            throw new IllegalArgumentException("Evento inválido - id: " + id);
-        }
-        try {
-            repository.deleteById(id);
-        } catch (Exception e){
-            throw new IllegalArgumentException("Evento inválido - id: " + id);
-        }
+    public String delete(@PathVariable("id") Long id, Model model){
+
+    service.delete(id);
         return "redirect:/eventos/listar";
     }
 

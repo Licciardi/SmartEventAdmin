@@ -38,7 +38,11 @@
                     <td><a th:href="${evento.url}" th:text="${evento.url}" target="_blank"></a></td>
 
                     <td>
-                        <a class="btn btn-danger btn-xs"> Excluir</a>
+                        <a class="btn btn-danger btn-xs"
+                        th:href="@{/eventos/deletar/{id}(id=${evento.id})}"
+                           th:data-confirm-delete="|Deseja excluir ${evento.nome}?|"
+                           onclick="if (!confirm(this.getAttribute('data-confirm-delete'))) return false"
+                        > Excluir</a>
                     </td>
                     <td>
                         <a class="btn btn-primary btn-xs"
