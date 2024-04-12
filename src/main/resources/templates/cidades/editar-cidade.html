@@ -11,7 +11,7 @@
     <div class="container">
         <div class="row">
             <div class="col">
-                <h2>Alteração de Eventos</h2>
+                <h2>Alteração de Cidades</h2>
                 <!--  verifica se a mensagem não é nula, se existe na requisição (chave,valor) -->
                 <div class="alert alert-success alert-dismissible fade show" th:if="${mensagem}">
                     <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
@@ -19,7 +19,7 @@
                     <span th:text="${mensagem}"></span>
                 </div>
 
-                <form action="#" th:action="@{/eventos/editar/{id}(id=${evento.id})}" th:object="${evento}" method="post">
+                <form action="#" th:action="@{/cidades/editar/{id}(id=${cidade.id})}" th:object="${cidade}" method="post">
                     <input type="hidden" name="_method" value="put">
                     <div class="row mb-3">
                         <label for="nome" class="col-sm-1 col-form-label">Nome:</label>
@@ -34,42 +34,20 @@
                         </div>
                     </div>
 
-                    <div class="row mb-3">
-                        <label for="data" class="col-sm-1 col-form-label">Data:</label>
+                    <div class="form-group row">
+                        <label for="estado" class="col-sm-1 col-form-label">Estado:</label>
                         <div class="col-sm-3">
-                            <input id="data" class="form-control" type="date" th:field="*{data}">
+                            <select id="estado" class="form-control" th:field="*{estado}">
+                                <option value="">Selecione o Estado</option>
+                                <!-- Inserir opções de estados em ordem alfabética -->
+                                <option th:each="estadoOption : ${estados}" th:value="${estadoOption}" th:text="${estadoOption}" th:selected="${estadoOption == estado}"></option>
+                            </select>
                         </div>
                         <div class="col-sm-5">
-                            <span class="mensagem" th:if="${#fields.hasErrors('data')}" th:errors="*{data}"></span>
+                            <span class="mensagem" th:if="${#fields.hasErrors('estado')}" th:errors="*{estado}"></span>
                         </div>
                     </div>
 
-                    <div class="row mb-3">
-                        <label for="url" class="col-sm-1 col-form-label">Url:</label>
-                        <div class="col-sm-2">
-                            <input id="url" class="form-control" type="url" th:field="*{url}">
-                        </div>
-                        <div class="col-sm-5">
-								<span class="mensagem" th:if="${#fields.hasErrors('url')}"
-                                      th:errors="*{url}"></span>
-                        </div>
-                    </div>
-
-
-                    <div class="form-row">
-                        <div class="row mb-3">
-                            <label class="col-sm-1 col-form-label">Cidade:</label>
-                            <div class="col-sm-3">
-                                <select class="chosen-select form-control" data-placehold="cidade" id="cidade" name="cidade" required>
-                                    <option value="">Selecione uma cidade</option>
-                                    <!-- Itera sobre a lista de cidades e gera as opções do dropdown -->
-                                    <option th:each="cidadeItem : ${cidades}" th:value="${cidadeItem.id}" th:text="${cidadeItem.nome}"></option>
-                                </select>
-                            </div>
-
-
-                        </div>
-                    </div>
 
 
                     <input class="btn btn-primary" type="submit" value="Alterar" />

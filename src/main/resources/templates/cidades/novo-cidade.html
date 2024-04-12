@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="pt-br" layout:decorate="~{template.html}"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:th="http://thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Cadastro de Cidades</title>
+
+
+</head>
+<body>
+<div layout:fragment="conteudo">
+
+
+    <div class="container">
+        <div class="row">
+            <div class="col">
+
+
+
+                <h1>Cadastrar Cidades</h1>
+
+                <div class="alert alert-success alert-dismissible fade show" th:if="${mensagem}">
+                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                    <span th:text="${mensagem}"></span>
+                </div>
+
+                <form action="/cidades" id="" method="post">
+                    <div class="p-2">
+                        <label for="nome">Nome da Cidade :</label>
+                        <input th:text="*{nome}" name="nome" id="nome" type="text" required>
+                    </div>
+
+                    <div class="p-2">
+                        <label for="estado">Estado :</label>
+                        <select name="estado" id="estado" required>
+                            <option value="">Selecione o Estado</option>
+                            <!-- Inserir opções de estados em ordem alfabética -->
+                            <option th:each="estado : ${estados}" th:value="${estado}" th:text="${estado}"></option>
+                        </select>
+                    </div>
+
+                    <button>Adicionar Cidade</button>
+                </form>
+
+
+            </div>
+
+        </div>
+
+    </div>
+</div>
+
+</body>
+</html>

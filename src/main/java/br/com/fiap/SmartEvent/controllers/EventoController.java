@@ -1,6 +1,8 @@
 package br.com.fiap.SmartEvent.controllers;
 
+import br.com.fiap.SmartEvent.models.Cidade;
 import br.com.fiap.SmartEvent.models.Evento;
+import br.com.fiap.SmartEvent.repository.CidadeRepository;
 import br.com.fiap.SmartEvent.services.EventoService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,12 +13,23 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.util.List;
+
 @Controller
 @RequestMapping("/eventos")
 public class EventoController {
 
     @Autowired
     private EventoService service;
+
+    @Autowired
+    private CidadeRepository cidadeRepository;
+
+
+    @ModelAttribute("cidades")
+    public List<Cidade> cidades(){
+        return cidadeRepository.findAll();
+    }
 
 
 

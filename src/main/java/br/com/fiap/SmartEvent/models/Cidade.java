@@ -5,6 +5,9 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import lombok.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @ToString
 @Getter
 @Setter
@@ -12,8 +15,8 @@ import lombok.*;
 @NoArgsConstructor
 
 @Entity
-@Table(name = "tb_evento")
-public class Evento {
+@Table(name = "tb_cidade")
+public class Cidade {
 
 
     @Id
@@ -25,15 +28,12 @@ public class Evento {
     private String nome;
 
     @NotBlank(message = "Campo requerido")
-    private String data;
+    @Size(min = 2, message = "o nome do evento deve conter no minimo 2 caracteres")
+    private String estado;
 
-    @NotBlank(message = "Campo requerido")
-    private String url;
+    @OneToMany(mappedBy = "cidade")
+    private List<Evento> eventos = new ArrayList<>();
 
-    @ManyToOne
-    @JoinColumn(name = "cidade_id", nullable = false) //PK
-    private Cidade cidade;
 
 
 }
-
