@@ -19,49 +19,55 @@
 
 
 
-<h1>Cadastrar Eventos</h1>
+<h1 class="my-5">Cadastrar Eventos</h1>
 
                 <div class="alert alert-success alert-dismissible fade show" th:if="${mensagem}">
                     <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
                     <span th:text="${mensagem}"></span>
                 </div>
 
-<form action="/eventos" id="" method="post">
-    <div class="p-2">
-        <label for="nome">Nome do Evento :</label>
-        <input th:text="*{nome}" name="nome" id="nome" type="text" required >
-    </div>
-
-    <div class="p-2">
-        <label for="data">Data do Evento :</label>
-        <input th:text="*{data}" name="data" id="data" type="date" required >
-    </div>
-
-    <div class="p-2">
-        <label for="url">Url do Evento :</label>
-        <input th:text="*{url}" name="url" id="url" type="text" required>
-    </div>
-
-
-
-    <div class="form-row">
-        <div class="row mb-3">
-            <label class="col-sm-1 col-form-label">Cidade:</label>
-            <div class="col-sm-3">
-                <select class="chosen-select form-control" data-placehold="cidade" id="cidade" name="cidade" required>
-                    <option value="">Selecione uma cidade</option>
-                    <!-- Itera sobre a lista de cidades e gera as opções do dropdown -->
-                    <option th:each="cidadeItem : ${cidades}" th:value="${cidadeItem.id}" th:text="${cidadeItem.nome}"></option>
-                </select>
-            </div>
-
-
+<form action="/eventos" method="post">
+    <div class="row mb-3">
+        <label class="col-sm-1 col-form-label" for="nome">Nome:</label>
+        <div class="col-sm-5">
+            <input th:text="*{nome}" name="nome" id="nome" type="text" class="form-control" placeholder="Escreva o nome do Evento" required>
+            
         </div>
     </div>
 
+    <div class="row mb-3">
+        <label class="col-sm-1 col-form-label" for="data">Data:</label>
+        <div class="col-sm-5">
 
+            <input th:text="*{data}" name="data" id="data" type="date" class="form-control" placeholder="Selecione a Data do Evento" required>
+        </div>
+        
+    </div>
 
-    <button>Adicionar Evento</button></form>
+    <div class="row mb-3">
+        <label class="col-sm-1 col-form-label" for="url">URL:</label>
+        <div class="col-sm-5">
+
+            <input th:text="*{url}" name="url" id="url" type="text" class="form-control" placeholder="Url do Evento" required>
+        </div>
+    </div>
+
+    <div class="row mb-3">
+        <label class="col-sm-1 col-form-label" for="cidade">Cidade:</label>
+        <div class="col-sm-5">
+
+       
+        <select class="form-control" id="cidade" name="cidade" required>
+            <option class="col-sm-1 col-form-label" value="">Selecione uma cidade</option>
+            <!-- Itera sobre a lista de cidades e gera as opções do dropdown -->
+            <option th:each="cidadeItem : ${cidades}" th:value="${cidadeItem.id}" th:text="${cidadeItem.nome}"></option>
+        </select>
+         </div>
+    </div>
+
+    <button type="submit" class="btn btnMenu mt-3">Adicionar Evento</button>
+</form>
+
 
             </div>
 
