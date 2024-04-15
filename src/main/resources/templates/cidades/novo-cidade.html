@@ -19,7 +19,7 @@
 
 
 
-                <h1>Cadastrar Cidades</h1>
+                <h2 class=" my-4 ">Cadastrar Cidades</h2>
 
                 <div class="alert alert-success alert-dismissible fade show" th:if="${mensagem}">
                     <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
@@ -27,21 +27,33 @@
                 </div>
 
                 <form action="/cidades" id="" method="post">
-                    <div class="p-2">
-                        <label for="nome">Nome da Cidade :</label>
-                        <input th:text="*{nome}" name="nome" id="nome" type="text" required>
+                    <div class="row mb-3">
+                        <label class="col-sm-1 col-form-label" for="nome">Nome:</label>
+                        <div class="col-sm-3">
+                            <input class="form-control" th:text="*{nome}" name="nome" id="nome" type="text" placeholder="Informe o nome da cidade">
+                        </div>
+
                     </div>
 
-                    <div class="p-2">
-                        <label for="estado">Estado :</label>
-                        <select name="estado" id="estado" required>
-                            <option value="">Selecione o Estado</option>
+                    <div class="row mb-3">
+
+                            <label class=" col-sm-1 col-form-label" for="estado">Estado :</label>
+
+                        <div class="col-sm-3">
+
+
+                        <select class="form-control " name="estado" id="estado" required>
+                            <option class="col-sm-1 col-form-label" value="">Selecione o Estado</option>
                             <!-- Inserir opções de estados em ordem alfabética -->
                             <option th:each="estado : ${estados}" th:value="${estado}" th:text="${estado}"></option>
                         </select>
+
+                        </div>
+
+
                     </div>
 
-                    <button>Adicionar Cidade</button>
+                    <button class="btn btnMenu mt-3">Adicionar Cidade</button>
                 </form>
 
 

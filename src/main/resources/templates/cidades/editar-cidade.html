@@ -11,7 +11,7 @@
     <div class="container">
         <div class="row">
             <div class="col">
-                <h2>Alteração de Cidades</h2>
+                <h2 class="my-4">Alteração de Cidades</h2>
                 <!--  verifica se a mensagem não é nula, se existe na requisição (chave,valor) -->
                 <div class="alert alert-success alert-dismissible fade show" th:if="${mensagem}">
                     <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
@@ -23,7 +23,7 @@
                     <input type="hidden" name="_method" value="put">
                     <div class="row mb-3">
                         <label for="nome" class="col-sm-1 col-form-label">Nome:</label>
-                        <div class="col-sm-5">
+                        <div class="col-sm-3">
                             <!--  th:field   associa input com cada campo com o atibuto do obj-->
                             <input id="nome" class="form-control" type="text" th:field="*{nome}" />
                         </div>
@@ -50,7 +50,7 @@
 
 
 
-                    <input class="btn btn-primary" type="submit" value="Alterar" />
+                    <input class="btn btnMenu mt-4" type="submit" value="Editar Cidade" />
 
                 </form>
 
